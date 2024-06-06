@@ -1,4 +1,4 @@
-package main
+package sizecmp
 
 import (
 	"fmt"
@@ -7,18 +7,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type funcSizecmp struct {
+type CommandOpt struct {
 	FileA string
 	FileB string
 	X     string
 }
 
-func (c *funcSizecmp) Run() error {
-	sz1, err := readSize(c.FileA)
+func Run(opt *CommandOpt) error {
+	sz1, err := readSize(opt.FileA)
 	if err != nil {
 		return err
 	}
-	sz2, err := readSize(c.FileB)
+	sz2, err := readSize(opt.FileB)
 	if err != nil {
 		return err
 	}
@@ -26,26 +26,23 @@ func (c *funcSizecmp) Run() error {
 	if sz1 == sz2 {
 		return nil
 	}
-	return fmt.Errorf("size mismatch: %s: %d, %s: %d", c.FileA, sz1, c.FileB, sz2)
+	return fmt.Errorf("size mismatch: %s: %d, %s: %d", opt.FileA, sz1, opt.FileB, sz2)
 }
 
-func cmdSizecmp() *cobra.Command {
-	f := &funcSizecmp{}
+func Command() *cobra.Command {
+	f := &CommandOpt{}
 
 	cmd := &cobra.Command{
-		Use: "sizecmp",
-		// SilenceUsage:  true,
-		// SilenceErrors: true,
+		Use:  "sizecmp",
+		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			f.FileA = args[0]
 			f.FileB = args[1]
-			return f.Run()
+			return Run(f)
 		},
-		// ValidArgsFunction: SecretCompletion(ctx),
 	}
 
 	flags := cmd.Flags()
-	_ = flags
 	flags.StringVarP(&f.X, "xxx", "x", "default", "Description")
 
 	return cmd

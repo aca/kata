@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/aca/lazybox/sizecmp"
 	"github.com/spf13/cobra"
 )
 
@@ -24,13 +25,6 @@ func newRootCmd(args []string) (*cobra.Command, error) {
 		Use:           "lazybox",
 		SilenceUsage:  true,
 		SilenceErrors: true,
-		// Run: func(cmd *cobra.Command, args []string) {
-		// 	// if versionFlag {
-		// 	// 	fmt.Println(version)
-		// 	// } else {
-		// 	// 	cmd.Help()
-		// 	// }
-		// },
 	}
 
 	f := cmd.PersistentFlags()
@@ -39,7 +33,7 @@ func newRootCmd(args []string) (*cobra.Command, error) {
 	f.Parse(args)
 
 	cmd.AddCommand(
-		cmdSizecmp(),
+		sizecmp.Command(),
 	)
 
 	return cmd, nil
