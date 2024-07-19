@@ -2,9 +2,13 @@
   description = "lazybox";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
     gomod2nix = {
       url = "github:nix-community/gomod2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,7 +18,6 @@
     nixpkgs,
     gomod2nix,
     gitignore,
-    xc,
   }: let
     allSystems = [
       "x86_64-linux" # 64-bit Intel/AMD Linux
@@ -65,7 +68,6 @@
     }:
       pkgs.mkShell {
         buildInputs = with pkgs; [
-          (golangci-lint.override {buildGoModule = buildGo121Module;})
           go_1_23
           gomod2nix.legacyPackages.${system}.gomod2nix
         ];
@@ -85,6 +87,3 @@
     };
   };
 }
-"x86_64-linux"
-# 64비트 Intel/AMD Linux
-
