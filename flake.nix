@@ -41,6 +41,25 @@
     in rec {
       default = lazybox;
 
+      xxx = buildGoApplication {
+        name = "xxx";
+        src = gitignore.lib.gitignoreSource ./.;
+        # Update to latest Go version when https://nixpk.gs/pr-tracker.html?pr=324123 is backported to release-24.05.
+        go = pkgs.go;
+        # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
+        pwd = ./.;
+        subPackages = ["./xxx"];
+        CGO_ENABLED = 0;
+        flags = [
+          "-trimpath"
+        ];
+        ldflags = [
+          "-s"
+          "-w"
+          "-extldflags -static"
+        ];
+      };
+
       lazybox = buildGoApplication {
         name = "lazybox";
         src = gitignore.lib.gitignoreSource ./.;
