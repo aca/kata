@@ -67,7 +67,7 @@
         go = pkgs.go;
         # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
         pwd = ./.;
-        subPackages = ["."];
+        subPackages = ["." "./xxx"];
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
@@ -92,16 +92,9 @@
         ];
       });
 
-    # This flake outputs an overlay that can be used to add lazybox and
-    # lazybox-docs to nixpkgs as per https://lazybox.guide/quick-start/installation/#nix
-    #
-    # Example usage:
-    #
-    # nixpkgs.overlays = [
-    #   inputs.lazybox.overlays.default
-    # ];
     overlays.default = final: prev: {
       lazybox = self.packages.${final.stdenv.system}.lazybox;
+      # lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
       lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
     };
   };
