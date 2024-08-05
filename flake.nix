@@ -95,7 +95,7 @@
     overlays.default = final: prev: {
       lazybox = self.packages.${final.stdenv.system}.lazybox;
       # lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
-      lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
+      xxx = self.packages.${final.stdenv.system}.xxx;
     };
   };
 }
