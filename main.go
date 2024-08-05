@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-
 func main() {
 	rootcmd, err := newRootCmd(os.Args)
 	if err != nil {

@@ -7,4 +7,10 @@ github.com/spf13/cobra v1.8.0/go.mod h1:WXLWApfZ71AjXPya3WOlMsY9yMs7YeiHhFVlvLyh
 github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
 github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/option.v0 v0.0.0-20220910000000-360f43518c40 h1:F5GXi2F4Ay44oV5rJ6BbsOZl4nYrb1Fv7w14KeTVj3g=
+gopkg.in/option.v0 v0.0.0-20220910000000-360f43518c40/go.mod h1:0NoLVhT/Lh19J02e6eFvBzkP8s+twOpvDEnu3HLFAWw=
+gopkg.in/ringbuffer.v0 v0.0.0-20220918000000-5de8faa4e64f h1:7mtO14VQRG/C1la1TuXDn47IAysD4ewATDo/Jl+Pc+4=
+gopkg.in/ringbuffer.v0 v0.0.0-20220918000000-5de8faa4e64f/go.mod h1:3TghidZ176UqWs/nFAHokh9C/3op/7yeG+a+AuVgeLs=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+gopkg.in/yenc.v0 v0.0.0-20221007000000-89ca7bd2041c h1:yr/d+op4Z8M9tqdHIT+w8810+WwKayoIn8GrCOhuu+8=
+gopkg.in/yenc.v0 v0.0.0-20221007000000-89ca7bd2041c/go.mod h1:dObRruJ/Wda00qz/c/fLQWWQH5e2vZIMuphX7eiGjnY=
