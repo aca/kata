@@ -10,3 +10,12 @@ schema = 3
   [mod."github.com/spf13/pflag"]
     version = "v1.0.5"
     hash = "sha256-w9LLYzxxP74WHT4ouBspH/iQZXjuAh2WQCHsuvyEjAw="
+  [mod."gopkg.in/option.v0"]
+    version = "v0.0.0-20220910000000-360f43518c40"
+    hash = "sha256-1b+LwLexEaUrMutzGIWbtu9H/NE5EL8fK9aPk4AFQIA="
+  [mod."gopkg.in/ringbuffer.v0"]
+    version = "v0.0.0-20220918000000-5de8faa4e64f"
+    hash = "sha256-Ojf7nf4wwy1JO+X0ahrvyewG4f9ng9XyDFCBl6Kpad8="
+  [mod."gopkg.in/yenc.v0"]
+    version = "v0.0.0-20221007000000-89ca7bd2041c"
+    hash = "sha256-RWtcik9mgXY5nUEsPvk6FJhd6fpo1IFH7Wf6HuSqg1g="
