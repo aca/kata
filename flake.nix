@@ -60,12 +60,12 @@
       };
 
       xxx2 = buildGoApplication {
-        name = "xxx";
+        name = "xxx2";
         src = gitignore.lib.gitignoreSource ./.;
         go = pkgs.go_1_23;
         # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
         pwd = ./xxx2;
-        subPackages = ["./xxx"];
+        subPackages = ["."];
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
@@ -111,7 +111,6 @@
 
     overlays.default = final: prev: {
       lazybox = self.packages.${final.stdenv.system}.lazybox;
-      # lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
       xxx = self.packages.${final.stdenv.system}.xxx;
       xxx2 = self.packages.${final.stdenv.system}.xxx2;
     };
