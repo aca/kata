@@ -39,7 +39,10 @@
     }: let
       buildGoApplication = gomod2nix.legacyPackages.${system}.buildGoApplication;
     in rec {
-      default = lazybox;
+      default = pkgs.buildEnv {
+        name = "my-httpd";
+        paths = [xxx xxx2];
+      };
 
       xxx = buildGoApplication {
         name = "xxx";
