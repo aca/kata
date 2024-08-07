@@ -113,6 +113,7 @@
       lazybox = self.packages.${final.stdenv.system}.lazybox;
       # lazybox-docs = self.packages.${final.stdenv.system}.lazybox-docs;
       xxx = self.packages.${final.stdenv.system}.xxx;
+      xxx2 = self.packages.${final.stdenv.system}.xxx2;
     };
   };
 }
