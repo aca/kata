@@ -61,11 +61,11 @@
 
       xxx2 = buildGoApplication {
         name = "xxx2";
-        src = gitignore.lib.gitignoreSource ./.;
+        src = gitignore.lib.gitignoreSource ./xxx2;
         go = pkgs.go_1_23;
         # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
         pwd = ./xxx2;
-        subPackages = ["."];
+        # subPackages = ["."];
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
@@ -84,7 +84,7 @@
         go = pkgs.go;
         # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
         pwd = ./.;
-        subPackages = ["." "./xxx"];
+        subPackages = ["."];
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
