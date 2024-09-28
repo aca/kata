@@ -1,0 +1,8 @@
+github.com/autobrr/go-qbittorrent v1.9.1-0.20240811161033-60e681763ffa h1:24mrAPHggRPNfVciijCTSlqod4tHraIEf7alLzyycoI=
+github.com/autobrr/go-qbittorrent v1.9.1-0.20240811161033-60e681763ffa/go.mod h1:MnEymsjMNFkxk5lh/onNNKCQC3PJ+Euvz1qWAtnJ2gE=
+github.com/avast/retry-go v3.0.0+incompatible h1:4SOWQ7Qs+oroOTQOYnAHqelpCO0biHSxpiH9JdtuBj0=
+github.com/avast/retry-go v3.0.0+incompatible/go.mod h1:XtSnn+n/sHqQIpZ10K1qAevBhOOCWBLXXy3hyiqqBrY=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+golang.org/x/net v0.28.0 h1:a9JDOJc5GMUJ0+UDqmLT86WiEy7iWyIhz8gz8E4e5hE=
+golang.org/x/net v0.28.0/go.mod h1:yqtgsTWOOnlGLG9GFRrK3++bGOUEkNBoHZc8MEDWPNg=
