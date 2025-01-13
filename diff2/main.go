@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/hex"
+	"flag"
 	"fmt"
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"reflect"
 	"sync"
 )
@@ -17,8 +19,27 @@ type DiffFile struct {
 }
 
 var hex2string = hex.EncodeToString
+var rml bool
+var rmr bool
 
 func main() {
+	flag.BoolVar(&rml, "rml", false, "rm left")
+	flag.BoolVar(&rmr, "rmr", false, "rm right")
+	flag.Parse()
+	args := flag.Args()
+
+	// TODO:should do realpath with evalsymlink
+	abs1, err := filepath.Abs(args[0])
+	if err != nil {
+		panic(err)
+	}
+	abs2, err := filepath.Abs(args[1])
+	if err != nil {
+		panic(err)
+	}
+	if abs1 == abs2 {
+		panic("same file")
+	}
 
 	wg := sync.WaitGroup{}
 
@@ -29,7 +50,7 @@ func main() {
 		go func() {
 			defer wg.Done()
 			var err error
-			dfile[i], err = GetDiffFile(os.Args[1+i])
+			dfile[i], err = GetDiffFile(args[i])
 			if err != nil {
 				panic(err)
 			}
@@ -37,11 +58,11 @@ func main() {
 	}
 	wg.Wait()
 
-	fmt.Println(os.Args[1])
+	fmt.Println(args[0])
 	fmt.Println("Head:", hex2string(dfile[0].Head[0:min(len(dfile[0].Head), 16)]))
 	fmt.Println("Tail:", hex2string(dfile[0].Tail[0:min(len(dfile[0].Tail), 16)]))
 	fmt.Println("")
-	fmt.Println(os.Args[2])
+	fmt.Println(args[1])
 	fmt.Println("Head:", hex2string(dfile[1].Head[0:min(len(dfile[1].Head), 16)]))
 	fmt.Println("Tail:", hex2string(dfile[1].Tail[0:min(len(dfile[1].Tail), 16)]))
 
@@ -53,6 +74,20 @@ func main() {
 		os.Exit(1)
 	} else {
 		fmt.Println("Files are same")
+		if rml {
+			log.Println("rm", args[0])
+			err := os.Remove(args[0])
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+		if rmr {
+			log.Println("rm", args[1])
+			err := os.Remove(args[1])
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
 	}
 }
 
