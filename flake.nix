@@ -47,7 +47,7 @@
       diff2 = buildGoApplication {
         name = "diff2";
         src = gitignore.lib.gitignoreSource ./diff2;
-        go = pkgs.go_1_23;
+        go = pkgs.go;
         pwd = ./diff2;
         CGO_ENABLED = 0;
         modules = ./diff2/gomod2nix.toml;
