@@ -46,9 +46,9 @@
 
       diff2 = buildGoApplication {
         name = "diff2";
-        src = gitignore.lib.gitignoreSource ./xxx2;
+        src = gitignore.lib.gitignoreSource ./diff2;
         go = pkgs.go_1_23;
-        pwd = ./xxx2;
+        pwd = ./diff2;
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
