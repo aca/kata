@@ -40,54 +40,15 @@
       buildGoApplication = gomod2nix.legacyPackages.${system}.buildGoApplication;
     in rec {
       default = pkgs.buildEnv {
-        name = "my-httpd";
-        paths = [xxx xxx2];
+        name = "xbox";
+        paths = [diff2];
       };
 
-      xxx = buildGoApplication {
-        name = "xxx";
-        src = gitignore.lib.gitignoreSource ./.;
-        go = pkgs.go_1_23;
-        # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
-        pwd = ./.;
-        subPackages = ["./xxx"];
-        CGO_ENABLED = 0;
-        flags = [
-          "-trimpath"
-        ];
-        ldflags = [
-          "-s"
-          "-w"
-          "-extldflags -static"
-        ];
-      };
-
-      xxx2 = buildGoApplication {
-        name = "xxx2";
+      diff2 = buildGoApplication {
+        name = "diff2";
         src = gitignore.lib.gitignoreSource ./xxx2;
         go = pkgs.go_1_23;
-        # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
         pwd = ./xxx2;
-        # subPackages = ["."];
-        CGO_ENABLED = 0;
-        flags = [
-          "-trimpath"
-        ];
-        ldflags = [
-          "-s"
-          "-w"
-          "-extldflags -static"
-        ];
-      };
-
-      lazybox = buildGoApplication {
-        name = "lazybox";
-        src = gitignore.lib.gitignoreSource ./.;
-        # Update to latest Go version when https://nixpk.gs/pr-tracker.html?pr=324123 is backported to release-24.05.
-        go = pkgs.go;
-        # Must be added due to bug https://github.com/nix-community/gomod2nix/issues/120
-        pwd = ./.;
-        subPackages = ["."];
         CGO_ENABLED = 0;
         flags = [
           "-trimpath"
@@ -113,9 +74,7 @@
       });
 
     overlays.default = final: prev: {
-      lazybox = self.packages.${final.stdenv.system}.lazybox;
-      xxx = self.packages.${final.stdenv.system}.xxx;
-      xxx2 = self.packages.${final.stdenv.system}.xxx2;
+      diff2 = self.packages.${final.stdenv.system}.diff2;
     };
   };
 }
