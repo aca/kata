@@ -1,0 +1,6 @@
+xbox
+====
+
+Personal busybox.
+
+    nix run --refresh github:aca/xbox/main#diff2
