@@ -50,6 +50,7 @@
         go = pkgs.go_1_23;
         pwd = ./diff2;
         CGO_ENABLED = 0;
+        modules = ./diff2/gomod2nix.toml;
         flags = [
           "-trimpath"
         ];
