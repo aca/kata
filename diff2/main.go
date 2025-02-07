@@ -102,7 +102,7 @@ func main() {
 	}
 }
 
-const diffsize = 2048
+const diffsize = 10000
 
 // GetFileCRC32 calculates and returns the CRC32 checksum of the specified file.
 func GetFileCRC32(f *os.File) (uint32) {

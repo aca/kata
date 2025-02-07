@@ -12,6 +12,7 @@ func main() {
 		panic(err)
 	}
 	
+	fmt.Println("1.05", price * 1.05)
 	fmt.Println("1.030", price * 1.03)
 	fmt.Println("1.025", price * 1.025)
 	fmt.Println("1.020", price * 1.02)
