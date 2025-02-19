@@ -1,4 +1,4 @@
-module github.com/aca/lazybox/yt-rmdup
+module github.com/aca/toolbox/yt-rmdup
 
 go 1.22.5
 

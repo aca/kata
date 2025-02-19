@@ -1,4 +1,4 @@
-module github.com/aca/lazybox/qbt
+module github.com/aca/toolbox/qbt
 
 go 1.23rc2
 

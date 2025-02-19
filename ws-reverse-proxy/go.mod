@@ -1,4 +1,4 @@
-module github.com/aca/lazybox/ws-reverse-proxy
+module github.com/aca/toolbox/ws-reverse-proxy
 
 go 1.23.4
 

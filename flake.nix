@@ -1,5 +1,5 @@
 {
-  description = "lazybox";
+  description = "toolbox";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
@@ -40,17 +40,16 @@
       buildGoApplication = gomod2nix.legacyPackages.${system}.buildGoApplication;
     in rec {
       default = pkgs.buildEnv {
-        name = "xbox";
+        name = "toolbox";
         paths = [diff2];
       };
 
       diff2 = buildGoApplication {
         name = "diff2";
-        src = gitignore.lib.gitignoreSource ./diff2;
-        go = pkgs.go;
+        go = pkgs.go_1_23;
+        src = ./diff2;
         pwd = ./diff2;
-        CGO_ENABLED = 0;
-        modules = ./diff2/gomod2nix.toml;
+        # modules = ./diff2/gomod2nix.toml;
         flags = [
           "-trimpath"
         ];
@@ -59,6 +58,7 @@
           "-w"
           "-extldflags -static"
         ];
+        CGO_ENABLED = 0;
       };
     });
 

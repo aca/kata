@@ -1,3 +1,3 @@
-module github.com/aca/lazybox/uniqstream
+module github.com/aca/toolbox/uniqstream
 
 go 1.22.5

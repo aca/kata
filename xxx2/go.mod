@@ -1,3 +1,3 @@
-module github.com/aca/lazybox/xxx2
+module github.com/aca/toolbox/xxx2
 
 go 1.23rc2

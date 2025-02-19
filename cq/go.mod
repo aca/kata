@@ -1,4 +1,4 @@
-module github.com/aca/lazybox/cq
+module github.com/aca/toolbox/cq
 
 go 1.22.5
 

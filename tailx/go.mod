@@ -1,3 +1,3 @@
-module github.com/aca/lazybox/tailx
+module github.com/aca/toolbox/tailx
 
 go 1.23.4

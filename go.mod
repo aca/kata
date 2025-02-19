@@ -1,4 +1,4 @@
-module github.com/aca/lazybox
+module github.com/aca/toolbox
 
 go 1.22.3
 

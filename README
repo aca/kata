@@ -1,6 +1,6 @@
-xbox
-====
+toolbox
+=======
 
 Personal busybox.
 
-    nix run --refresh github:aca/xbox/main#diff2
+    nix run --refresh github:aca/toolbox/main#diff2
