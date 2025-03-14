@@ -11,7 +11,7 @@ import (
 
 // mergeDirectories moves the contents of srcDir into destDir, handling conflicts with size and CRC32 checks
 func mergeDirectories(srcDir, destDir string) error {
-	const maxSizeForHash = 100 * 1024 * 1024 // 100MB in bytes
+	const maxSizeForHash = 100 * 1024 * 1024 * 1000 // 100MB in bytes
 
 	// Walk through the source directory
 	err := filepath.Walk(srcDir, func(srcPath string, info os.FileInfo, err error) error {
