@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/dustin/go-humanize"
 )
 
 // mergeDirectories moves the contents of srcDir into destDir, handling conflicts with size and CRC32 checks
@@ -67,7 +69,9 @@ func mergeDirectories(srcDir, destDir string) error {
 				}
 			}
 			// Files differ (size, hash, or too large), log conflict and skip
-			log.Printf("Conflict: %s differs from %s (size or content), skipping", destPath, srcPath)
+			log.Printf("Conflict: %s differs from %s skipping", destPath, srcPath)
+			log.Printf("src %v %v %v", srcPath, info.Size(), humanize.Bytes(uint64(info.Size())))
+			log.Printf("dst %v %v %v", destPath, destInfo.Size(), humanize.Bytes(uint64(destInfo.Size())))
 			return nil
 		} else if !os.IsNotExist(err) {
 			// Some other error occurred

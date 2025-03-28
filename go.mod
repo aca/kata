@@ -3,6 +3,7 @@ module github.com/aca/toolbox
 go 1.22.3
 
 require (
+	github.com/dustin/go-humanize v1.0.1
 	github.com/spf13/cobra v1.8.0
 	gopkg.in/yenc.v0 v0.0.0-20221007000000-89ca7bd2041c
 )
