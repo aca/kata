@@ -1,3 +1,6 @@
+// remove_duplicates.go
+// Go 프로그램으로 디렉토리 내 5MB 이상의 중복 파일을 즉시 찾아 제거하되,
+// 중복이 확인된 파일에 한해 해시를 계산합니다.
 package main
 
 import (
@@ -8,18 +11,16 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sort"
 
 	"github.com/cespare/xxhash/v2"
 )
 
 var (
-	minSizeMB = flag.Int("min-size", 0, "Minimum file size in MB to consider")
+	minSizeMB = flag.Int("min-size", 5, "Minimum file size in MB to consider")
 	useCRC32  = flag.Bool("crc32", false, "Use CRC32 instead of xxhash")
 	doDelete  = flag.Bool("delete", false, "Actually delete duplicates")
 )
 
-// getFileHash computes the hash of a file using xxhash or CRC32
 func getFileHash(path string, useCRC32 bool) (string, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -42,9 +43,21 @@ func getFileHash(path string, useCRC32 bool) (string, error) {
 	return fmt.Sprintf("%x", h.Sum64()), nil
 }
 
-// findDuplicates 그룹별 해시를 계산하여 중복 파일 그룹을 반환
-func findDuplicates(root string, minBytes int64) ([][]string, error) {
-	sizeMap := make(map[int64][]string)
+func main() {
+	flag.Parse()
+	root := flag.Arg(0)
+	if root == "" {
+		log.Fatal("Usage: remove_duplicates.go [options] <directory>")
+	}
+	minBytes := int64(*minSizeMB) * 1024 * 1024
+	fmt.Printf("Scanning %s for files >= %d MB...\n", root, *minSizeMB)
+
+	// size -> first file path (unhashed)
+	firstBySize := make(map[int64]string)
+	// size -> (hash -> file path), active after first collision
+	hashedMap := make(map[int64]map[string]string)
+	removedCount := 0
+
 	err := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return nil
@@ -57,76 +70,72 @@ func findDuplicates(root string, minBytes int64) ([][]string, error) {
 			return nil
 		}
 		size := info.Size()
-		if size >= minBytes {
-			sizeMap[size] = append(sizeMap[size], path)
+		if size < minBytes {
+			return nil
 		}
-		return nil
-	})
-	if err != nil {
-		return nil, err
-	}
 
-	var duplicates [][]string
-	for _, paths := range sizeMap {
-		if len(paths) < 2 {
-			continue
-		}
-		hashMap := make(map[string][]string)
-		for _, p := range paths {
-			h, err := getFileHash(p, *useCRC32)
-			if err != nil {
-				log.Printf("Error hashing %s: %v", p, err)
-				continue
-			}
-			hashMap[h] = append(hashMap[h], p)
-		}
-		for _, group := range hashMap {
-			if len(group) > 1 {
-				duplicates = append(duplicates, group)
-			}
-		}
-	}
-	return duplicates, nil
-}
-
-// removeDuplicates 중복 파일을 실제 삭제 또는 드라이런
-func removeDuplicates(groups [][]string, dryRun bool) {
-	for _, group := range groups {
-		sort.Strings(group)
-		for _, dup := range group[1:] {
-			if dryRun {
-				fmt.Printf("rm -v %q\n", dup)
-			} else {
-				if err := os.Remove(dup); err != nil {
-					fmt.Printf("Error removing %s: %v\n", dup, err)
-				} else {
-					fmt.Printf("Removed: %s\n", dup)
+		// 첫 파일인지 확인
+		if orig, seen := firstBySize[size]; !seen {
+			// 아직 같은 크기의 파일을 본 적 없음
+			firstBySize[size] = path
+			return nil
+		} else {
+			// 두 번째 이상의 파일
+			if _, ok := hashedMap[size]; !ok {
+				// 해시 맵이 없으면, 처음 충돌이 발생한 것이므로
+				// 첫 파일과 현재 파일 해시 계산
+				hashOrig, err1 := getFileHash(orig, *useCRC32)
+				hashCur, err2 := getFileHash(path, *useCRC32)
+				if err1 != nil || err2 != nil {
+					log.Printf("Hash error: %v, %v", err1, err2)
+					// 해시 에러 시 두 파일 모두 맵에 저장
+					hashedMap[size] = map[string]string{}
+					hashedMap[size]["<hash_err>_"+orig] = orig
+					hashedMap[size]["<hash_err>_"+path] = path
+					return nil
 				}
+				hashedMap[size] = map[string]string{hashOrig: orig}
+				// 현재 파일에 대해 비교
+				if hashCur == hashOrig {
+					if *doDelete {
+						os.Remove(path)
+						fmt.Printf("Removed duplicate: %s (original: %s)\n", path, orig)
+					} else {
+						fmt.Printf("rm %q\n", path)
+					}
+					removedCount++
+				} else {
+					hashedMap[size][hashCur] = path
+				}
+				return nil
 			}
+			// 이후에는 hashedMap 사용
+			hashCur, err := getFileHash(path, *useCRC32)
+			if err != nil {
+				log.Printf("Error hashing %s: %v", path, err)
+				return nil
+			}
+			if origPath, exists := hashedMap[size][hashCur]; exists {
+				if *doDelete {
+					os.Remove(path)
+					fmt.Printf("Removed duplicate: %s (original: %s)\n", path, origPath)
+				} else {
+					fmt.Printf("Would remove duplicate: %s (original: %s)\n", path, origPath)
+				}
+				removedCount++
+			} else {
+				hashedMap[size][hashCur] = path
+			}
+			return nil
 		}
-	}
-}
-
-func main() {
-	flag.Parse()
-	root := flag.Arg(0)
-	if root == "" {
-		log.Fatal("Usage: remove_duplicates.go [options] <directory>")
-	}
-	minBytes := int64(*minSizeMB) * 1024 * 1024
-	fmt.Printf("Scanning %s for files >= %d MB...\n", root, *minSizeMB)
-	dups, err := findDuplicates(root, minBytes)
+	})
 	if err != nil {
 		log.Fatalf("Scan error: %v", err)
 	}
-	if len(dups) == 0 {
-		fmt.Println("No duplicates found.")
-		return
+
+	if *doDelete {
+		fmt.Printf("Finished. Removed %d duplicate files.\n", removedCount)
+	} else {
+		fmt.Printf("Finished dry run. %d duplicates found.\n", removedCount)
 	}
-	total := 0
-	for _, g := range dups {
-		total += len(g) - 1
-	}
-	fmt.Printf("Found %d duplicates in %d groups.\n", total, len(dups))
-	removeDuplicates(dups, !*doDelete)
 }
