@@ -102,7 +102,7 @@ func main() {
 						fmt.Printf("Removed duplicate: %s (original: %s)\n", path, orig)
 					} else {
 						fmt.Printf("# %q exist\n" , orig)
-						fmt.Printf("rm %q\n", path)
+						fmt.Printf("rm -v -- %q\n", path)
 					}
 					removedCount++
 				} else {
