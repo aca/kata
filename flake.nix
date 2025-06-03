@@ -72,7 +72,7 @@
 
           rm = buildGoApplication {
             name = "rm";
-            go = pkgs.go_1_23;
+            go = pkgs.go_1_24;
             # modules = ./rm/gomod2nix.toml;
             src = ./rm;
             pwd = ./rm;
@@ -97,7 +97,7 @@
         }:
         pkgs.mkShell {
           buildInputs = with pkgs; [
-            go_1_23
+            go_1_24
             gomod2nix.legacyPackages.${system}.gomod2nix
           ];
         }

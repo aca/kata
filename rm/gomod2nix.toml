@@ -1,0 +1,9 @@
+schema = 3
+
+[mod]
+  [mod."github.com/go-stdx/trash"]
+    version = "v0.0.0-20250603154748-71ed19dea533"
+    hash = "sha256-JD5wS+lNOFd57V9IxYT10bUFAeYJdgOF53vOzFuzOg4="
+  [mod."github.com/urfave/cli/v3"]
+    version = "v3.3.3"
+    hash = "sha256-FdPiu7koY1qBinkfca4A05zCrX+Vu4eRz8wlRDZJyGg="
