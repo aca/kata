@@ -70,20 +70,21 @@
           #   CGO_ENABLED = 0;
           # };
 
-          rm = buildGoModule {
-            # name = "rm";
-            # go = pkgs.go_1_23;
+          rm = buildGoApplication {
+            name = "rm";
+            go = pkgs.go_1_23;
+            # modules = ./rm/gomod2nix.toml;
             src = ./rm;
-            # pwd = ./rm;
-            # flags = [
-            #   "-trimpath"
-            # ];
-            # ldflags = [
-            #   "-s"
-            #   "-w"
-            #   "-extldflags -static"
-            # ];
-            # CGO_ENABLED = 0;
+            pwd = ./rm;
+            flags = [
+              "-trimpath"
+            ];
+            ldflags = [
+              "-s"
+              "-w"
+              "-extldflags -static"
+            ];
+            CGO_ENABLED = 0;
           };
         }
       );
