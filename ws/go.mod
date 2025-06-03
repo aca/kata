@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/ws
+module github.com/aca/kata/ws
 
 go 1.23.4
 

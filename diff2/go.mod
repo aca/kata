@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/diff2
+module github.com/aca/kata/diff2
 
 go 1.23.0
 

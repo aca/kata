@@ -1,6 +1,6 @@
-toolbox
+kata
 =======
 
 Personal busybox.
 
-    nix run --refresh github:aca/toolbox/main#diff2
+    nix run --refresh github:aca/kata/main#diff2

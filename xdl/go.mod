@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/xbl
+module github.com/aca/kata/xbl
 
 go 1.23.4
 

@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/finddup-remove
+module github.com/aca/kata/finddup-remove
 
 go 1.24
 

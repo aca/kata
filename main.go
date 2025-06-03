@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/aca/toolbox/sizecmp"
+	"github.com/aca/kata/sizecmp"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,7 @@ func main() {
 func newRootCmd(args []string) (*cobra.Command, error) {
 	versionFlag := false
 	cmd := &cobra.Command{
-		Use:           "toolbox",
+		Use:           "kata",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}

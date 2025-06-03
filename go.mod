@@ -1,4 +1,4 @@
-module github.com/aca/toolbox
+module github.com/aca/kata
 
 go 1.22.3
 

@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/cq
+module github.com/aca/kata/cq
 
 go 1.22.5
 

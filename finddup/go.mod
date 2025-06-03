@@ -1,3 +1,3 @@
-module github.com/aca/toolbox/finddup
+module github.com/aca/kata/finddup
 
 go 1.23.4

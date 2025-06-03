@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/qbt
+module github.com/aca/kata/qbt
 
 go 1.23rc2
 

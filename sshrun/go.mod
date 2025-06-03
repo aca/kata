@@ -1,4 +1,4 @@
-module github.com/aca/toolbox/sshrun
+module github.com/aca/kata/sshrun
 
 go 1.23.6
 
