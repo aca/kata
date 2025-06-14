@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"log"
@@ -13,7 +14,8 @@ import (
 
 func main() {
 	cmd := &cli.Command{
-		Name: "rm",
+		Name:                   "rm",
+		UseShortOptionHandling: true,
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "force",
@@ -62,11 +64,27 @@ func main() {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
+			interactive := cmd.Bool("interactive")
+			verbose := cmd.Bool("verbose")
+
+			reader := bufio.NewReader(os.Stdin)
+
 			for _, f := range cmd.Args().Slice() {
+				if interactive {
+					fmt.Printf("rm: remove %s? ", f)
+					_, err := reader.ReadString('\n')
+					if err != nil {
+						return err
+					}
+				}
+
 				err := trash.Trash(f)
-				slog.Info(fmt.Sprintf("trash: trashed %q", f))
 				if err != nil {
 					return err
+				}
+
+				if verbose {
+					slog.Info(fmt.Sprintf("trash: trashed %q", f))
 				}
 			}
 			return nil
