@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go build:*)",
+      "Bash(./zz echo:*)",
+      "Bash(chmod:*)",
+      "Bash(./test_args.sh:*)",
+      "Bash(./zz:*)",
+      "Bash(journalctl:*)",
+      "Bash(/home/rok/src/github.com/aca/kata/zz/test_args.sh \"single'quote\" \"double\\\"quote\" \"mix'ed\\\"quotes\")",
+      "Bash(rm:*)"
+    ],
+    "deny": []
+  }
+}
