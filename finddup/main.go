@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -25,6 +26,11 @@ func main() {
 			if err != nil {
 				return err
 			}
+
+			if strings.Contains(path, "snapraid") {
+				return nil
+			}
+
 			// Skip directories.
 			if d.IsDir() {
 				return nil
