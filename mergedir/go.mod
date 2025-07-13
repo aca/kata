@@ -1,4 +1,4 @@
-module github.com/aca/lazybox/mergedir
+module github.com/aca/kata/mergedir
 
 go 1.23.6
 
