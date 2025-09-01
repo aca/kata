@@ -8,7 +8,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/go-stdx/trash"
+	"github.com/xtdlib/go-trash"
 	"github.com/urfave/cli/v3"
 )
 
