@@ -71,11 +71,16 @@ func main() {
 
 			for _, f := range cmd.Args().Slice() {
 				if interactive {
-					fmt.Printf("rm: remove %s? ", f)
+					fmt.Printf("rmx: remove %s? ", f)
 					_, err := reader.ReadString('\n')
 					if err != nil {
 						return err
 					}
+				}
+
+				if _, err := os.Stat(f); os.IsNotExist(err) {
+					slog.Debug(fmt.Sprintf("rmx: %q does not exist, skipping", f))
+					return nil
 				}
 
 				err := trash.Trash(f)
@@ -84,7 +89,7 @@ func main() {
 				}
 
 				if verbose {
-					slog.Info(fmt.Sprintf("trash: trashed %q", f))
+					slog.Info(fmt.Sprintf("rmx: trashed %q", f))
 				}
 			}
 			return nil
