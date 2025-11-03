@@ -8,5 +8,7 @@ github.com/urfave/cli/v3 v3.4.1 h1:1M9UOCy5bLmGnuu1yn3t3CB4rG79Rtoxuv1sPhnm6qM=
 github.com/urfave/cli/v3 v3.4.1/go.mod h1:FJSKtM/9AiiTOJL4fJ6TbMUkxBXn7GO9guZqoZtpYpo=
 github.com/xtdlib/go-trash v0.0.0-20250901110948-724ba7e3a8f1 h1:TdcYhKSMV6OHMW7xvURy6TGuEo3cUlZHaZ0fmS9Ne8E=
 github.com/xtdlib/go-trash v0.0.0-20250901110948-724ba7e3a8f1/go.mod h1:myWCiI3i2SXkGFcze5gycPFXLElmDEd5EBtb9QcbVfY=
+github.com/xtdlib/go-trash v0.0.0-20251025104700-3e4142c50e4a h1:GDqSsOfKrViBrpxwZLi+DPqCqYorfzG3c/ZTh4E7tVQ=
+github.com/xtdlib/go-trash v0.0.0-20251025104700-3e4142c50e4a/go.mod h1:myWCiI3i2SXkGFcze5gycPFXLElmDEd5EBtb9QcbVfY=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=

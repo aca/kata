@@ -70,6 +70,19 @@
           #   CGO_ENABLED = 0;
           # };
 
+          proxyt = pkgs.buildGoModule {
+            name = "proxyt";
+            pname = "proxyt";
+            version = "unstable";
+            src = pkgs.fetchFromGitHub {
+              owner = "jaxxstorm";
+              repo = "proxyt";
+              rev = "main";
+              sha256 = "sha256-pu5jFyR9KByc4xq0nBp9ofIIIr5sqIi7/74Vxr/WI7I=";
+            };
+            vendorHash = "sha256-VxFenv4Ca+HA/7Sq88CqtY7bEaJ3J/wq+Iq7O2tyL30=";
+          };
+
           rm = buildGoApplication {
             name = "rm";
             go = pkgs.go_1_24;
