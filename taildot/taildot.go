@@ -19,7 +19,7 @@ func main() {
 		close(lines)
 	}()
 
-	ticker := time.NewTicker(time.Second * 30)
+	ticker := time.NewTicker(time.Second * 10)
 	defer ticker.Stop()
 
 	for {
@@ -29,7 +29,7 @@ func main() {
 				return
 			}
 			fmt.Println(line)
-			ticker.Reset(time.Second * 30)
+			ticker.Reset(time.Second * 10)
 		case <-ticker.C:
 			fmt.Println(".")
 		}
