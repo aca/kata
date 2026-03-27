@@ -29,7 +29,7 @@ func main() {
 				return
 			}
 			fmt.Println(line)
-			ticker.Reset(time.Second)
+			ticker.Reset(time.Second * 30)
 		case <-ticker.C:
 			fmt.Println(".")
 		}
