@@ -7,8 +7,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-
-	"github.com/dustin/go-humanize"
 )
 
 // mergeDirectories moves the contents of srcDir into destDir, handling conflicts with size and CRC32 checks
@@ -49,29 +47,30 @@ func mergeDirectories(srcDir, destDir string) error {
 		// Handle files
 		// Check if the file already exists in the destination
 		destInfo, err := os.Stat(destPath)
+		_ = destInfo
 		if err == nil {
 			// Conflict: file exists
-			if info.Size() == destInfo.Size() && info.Size() < maxSizeForHash {
-				// Files have the same size and are under 100MB, compare CRC32 hashes
-				srcHash, err := computeCRC32(srcPath)
-				if err != nil {
-					return fmt.Errorf("failed to compute CRC32 for %s: %v", srcPath, err)
-				}
-				destHash, err := computeCRC32(destPath)
-				if err != nil {
-					return fmt.Errorf("failed to compute CRC32 for %s: %v", destPath, err)
-				}
-
-				if srcHash == destHash {
-					// Files are identical, print removal command instead of removing
-					log.Printf("Identical files detected, run this to remove source: ```rm %s``` (matches %s)", srcPath, destPath)
-					return nil
-				}
-			}
+			// if info.Size() == destInfo.Size() && info.Size() < maxSizeForHash {
+			// 	// Files have the same size and are under 100MB, compare CRC32 hashes
+			// 	srcHash, err := computeCRC32(srcPath)
+			// 	if err != nil {
+			// 		return fmt.Errorf("failed to compute CRC32 for %s: %v", srcPath, err)
+			// 	}
+			// 	destHash, err := computeCRC32(destPath)
+			// 	if err != nil {
+			// 		return fmt.Errorf("failed to compute CRC32 for %s: %v", destPath, err)
+			// 	}
+			//
+			// 	if srcHash == destHash {
+			// 		// Files are identical, print removal command instead of removing
+			// 		log.Printf("Identical files detected, run this to remove source: ```rm %s``` (matches %s)", srcPath, destPath)
+			// 		return nil
+			// 	}
+			// }
 			// Files differ (size, hash, or too large), log conflict and skip
 			log.Printf("Conflict: %s differs from %s skipping", destPath, srcPath)
-			log.Printf("src %v %v %v", srcPath, info.Size(), humanize.Bytes(uint64(info.Size())))
-			log.Printf("dst %v %v %v", destPath, destInfo.Size(), humanize.Bytes(uint64(destInfo.Size())))
+			// log.Printf("src %v %v %v", srcPath, info.Size(), humanize.Bytes(uint64(info.Size())))
+			// log.Printf("dst %v %v %v", destPath, destInfo.Size(), humanize.Bytes(uint64(destInfo.Size())))
 			return nil
 		} else if !os.IsNotExist(err) {
 			// Some other error occurred
@@ -87,12 +86,12 @@ func mergeDirectories(srcDir, destDir string) error {
 			}
 		}
 
+		log.Printf("Moving: %s -> %s", srcPath, destPath)
 		// Move the file
 		err = os.Rename(srcPath, destPath)
 		if err != nil {
 			return fmt.Errorf("failed to move %s to %s: %v", srcPath, destPath, err)
 		}
-		log.Printf("Moved: %s -> %s", srcPath, destPath)
 		return nil
 	})
 
