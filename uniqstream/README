@@ -1,0 +1,8 @@
+uniqstream
+----------
+
+    echo "1\n2\n1" | uniqstream
+
+simple alternative to execsnoop (elvish)
+
+    while true { ps -eo pid,comm,args | grep -v /run/current-system/sw/bin/ps | grep -v grep ; sleep 0.5  } | uniqstream

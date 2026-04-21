@@ -1,0 +1,6 @@
+kata
+=======
+
+Personal busybox.
+
+    nix run --refresh github:aca/kata/main#diff2

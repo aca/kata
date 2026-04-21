@@ -1,0 +1,9 @@
+schema = 3
+
+[mod]
+  [mod."github.com/urfave/cli/v3"]
+    version = "v3.4.1"
+    hash = "sha256-cDMaQrIVMthUhdyI1mKXzDC5/wIK151073lzRl92RnA="
+  [mod."github.com/xtdlib/go-trash"]
+    version = "v0.0.0-20250901110948-724ba7e3a8f1"
+    hash = "sha256-SzgL+N8XmN/L0F5UrVHgndpBovVS9PCXKc8/MnSj6o8="
