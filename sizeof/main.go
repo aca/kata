@@ -10,8 +10,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	_ = err
-	_ = stat
 
 	fmt.Println(stat.Size())
 }
