@@ -2,7 +2,7 @@
   description = "kata";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/master?shallow=1";
     gomod2nix = {
       url = "github:nix-community/gomod2nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,7 +85,7 @@
 
           rm = buildGoApplication {
             name = "rm";
-            go = pkgs.go_1_24;
+            go = pkgs.go;
             # modules = ./rm/gomod2nix.toml;
             src = ./rm;
             pwd = ./rm;
@@ -110,7 +110,7 @@
         }:
         pkgs.mkShell {
           buildInputs = with pkgs; [
-            go_1_24
+            go
             gomod2nix.legacyPackages.${system}.gomod2nix
           ];
         }
